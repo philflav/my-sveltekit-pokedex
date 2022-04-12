@@ -3,7 +3,7 @@ import {writable} from 'svelte/store';
 export const pokemon = writable ([]);
 
 const fetchPokemon = async () => {
-  const url = 'https://pokeapi.co/api/v2/pokemon?limit=10';
+  const url = 'https://pokeapi.co/api/v2/pokemon?limit=500';
   console.log (url);
   const res = await fetch (url);
   const data = await res.json ();
