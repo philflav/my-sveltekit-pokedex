@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frijole&family=Gamja+Flower&family=Rubik:wght@500&display=swap');
+
+h3,
+h4,
+a,
+p,
+li {
+	font-family: 'Gamja Flower';
+	font-weight: normal;
+	font-size: 32px;
+}
+
+h1,
+h2 {
+	font-family: 'Frijole';
+	font-weight: bold;
+	font-size: 64px;
+}
