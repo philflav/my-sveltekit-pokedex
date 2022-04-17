@@ -1,3 +1,8 @@
+<script>
+	import { user, isLoggedIn } from '../stores/stores';
+	const image = $user.photoURL;
+</script>
+
 <nav
 	class="relative w-full flex flex-wrap items-center justify-around py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light"
 >
@@ -9,10 +14,22 @@
 	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/about"
 		>About</a
 	>
-	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/login"
-		>Login</a
-	>
-	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/"
-		>Logout</a
-	>
+	{#if !$isLoggedIn}
+		<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/login"
+			>Login</a
+		>
+	{/if}
+	{#if $isLoggedIn}
+		<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/login"
+			>Logout</a
+		>
+		<img class="image" width="50" height="50" src={image} alt="user" />
+	{/if}
 </nav>
+
+<style>
+	.image {
+		border-radius: 100%;
+		margin-bottom: 10px;
+	}
+</style>
