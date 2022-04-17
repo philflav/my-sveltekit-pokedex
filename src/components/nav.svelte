@@ -3,6 +3,9 @@
 >
 	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/">Home</a
 	>
+	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/profile"
+		>Profile</a
+	>
 	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/about"
 		>About</a
 	>
