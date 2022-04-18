@@ -1,6 +1,5 @@
 <script>
 	import { user, isLoggedIn } from '../stores/stores';
-	const image = $user.photoURL;
 </script>
 
 <nav
@@ -23,7 +22,7 @@
 		<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/login"
 			>Logout</a
 		>
-		<img class="image" width="50" height="50" src={image} alt="user" />
+		<img class="image" width="40" height="40" src={$user.photoURL} alt="user" />
 	{/if}
 </nav>
 

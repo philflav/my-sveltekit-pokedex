@@ -3,10 +3,8 @@
 	import '../styles/global.css';
 </script>
 
-<div class="p-8 max-w-6xl mx-auto">
-	<Nav />
-</div>
 <div class="container pt-16 py-28 text-center">
+	<Nav />
 	<slot />
 </div>
 

@@ -16,9 +16,14 @@
 		}
 	};
 	const logout = async () => {
-		auth.signOut();
-		$isLoggedIn = false;
-		goto('/');
+		try {
+			await auth.signOut();
+			$user = {};
+			$isLoggedIn = false;
+			goto('/');
+		} catch (err) {
+			console.error(err);
+		}
 	};
 </script>
 
