@@ -20,7 +20,7 @@
 			await auth.signOut();
 			$user = {};
 			$isLoggedIn = false;
-			goto('/');
+			goto('/profile');
 		} catch (err) {
 			console.error(err);
 		}
