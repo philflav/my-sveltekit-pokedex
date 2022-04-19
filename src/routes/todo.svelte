@@ -9,9 +9,9 @@
 	let todos = [
 		{ task: 'Task 1', isComplete: false },
 		{ task: 'Task 2', isComplete: false },
-		{ task: 'Task 3', isComplete: true },
+		{ task: 'Task 3', isComplete: false },
 		{ task: 'Task 4', isComplete: false },
-		{ task: 'Task 5', isComplete: true }
+		{ task: 'Task 5', isComplete: false }
 	];
 
 	let newItem = '';
@@ -21,8 +21,25 @@
 			task: newItem,
 			isComplete: false
 		};
-		todos = [todo, ...todos];
-		console.table(todos);
+		if (newItem !== '') {
+			todos = [todo, ...todos];
+			newItem = '';
+		}
+	};
+
+	const keyPressed = (event) => {
+		if (event.key === 'Enter') {
+			addItem();
+		}
+	};
+
+	const markCompleted = (index) => {
+		todos[index].isComplete = !todos[index].isComplete;
+	};
+
+	const deleteTodo = (index) => {
+		todos.splice(index, 1);
+		todos = todos;
 	};
 
 	let placeholder = 'Add a task';
@@ -32,15 +49,30 @@
 
 {#if $isLoggedIn}
 	<input type="text" {placeholder} bind:value={newItem} />
-	<button
-		class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-		on:click={addItem}>Add item</button
+	<button class="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-full" on:click={addItem}
+		>Add item</button
 	>
 
 	<div class="border-2 m-10  p-10">
 		<ol>
-			{#each todos as td}
-				<li class="list-decimal text-left" class:complete={td.isComplete}>{td.task}</li>
+			{#each todos as td, index}
+				<li class="list-decimal text-left" class:complete={td.isComplete}>
+					<span
+						><button
+							class="bg-blue-500 hover:bg-blue-700 text-white m-2 px-2 rounded-full"
+							on:click={() => markCompleted(index)}>✔</button
+						></span
+					>
+					<span>{td.task}</span>
+					<span
+						><button
+							class="bg-red-500 hover:bg-red-700 text-white m-2 px-2 rounded-full"
+							on:click={() => deleteTodo(index)}>✘</button
+						></span
+					>
+				</li>
+			{:else}
+				<p>No todos found</p>
 			{/each}
 		</ol>
 	</div>
@@ -48,6 +80,8 @@
 {#if !$isLoggedIn}
 	<div class="text-center"><h2>User not logged in</h2></div>
 {/if}
+
+<svelte:window on:keypress={keyPressed} />
 
 <style>
 	.complete {
