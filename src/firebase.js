@@ -1,8 +1,9 @@
 import {initializeApp} from 'firebase/app';
-import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
+import {getAuth, GoogleAuthProvider} from 'firebase/auth';
+import {getFirestore, collection, doc, setDoc} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyD4JE-vrl497zcwaJbz1KYDqpFIt_8Ibyk',
   authDomain: 'sveltekit-tutorial.firebaseapp.com',
   projectId: 'sveltekit-tutorial',
@@ -12,7 +13,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp (firebaseConfig);
+const app = initializeApp (firebaseConfig);
+
+export const db = getFirestore (app);
 
 export const auth = getAuth ();
 

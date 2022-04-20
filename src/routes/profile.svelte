@@ -5,7 +5,6 @@
 	const image = $user.photoURL;
 	const displayName = $user.displayName;
 	const email = $user.email;
-	console.log($user);
 </script>
 
 <h1 class="text-4xl text-center my-8 uppercase">Profile</h1>

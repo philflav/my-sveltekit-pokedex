@@ -1,29 +1,34 @@
 <script>
 	// @ts-nocheck
+	import { db } from '../firebase.js';
+	import { collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
 
 	import { user, isLoggedIn } from '../stores/stores';
-	const image = $user.photoURL;
-	const displayName = $user.displayName || 'nobody';
-	const email = $user.email;
 
-	let todos = [
-		{ task: 'Task 1', isComplete: false },
-		{ task: 'Task 2', isComplete: false },
-		{ task: 'Task 3', isComplete: false },
-		{ task: 'Task 4', isComplete: false },
-		{ task: 'Task 5', isComplete: false }
-	];
+	const displayName = $user.displayName || 'nobody';
+
+	const colRef = collection(db, 'todos');
+	const fbTodos = [];
+
+	let todos = [];
+	const _func = onSnapshot(colRef, (querySnapshot) => {
+		let fbTodos = [];
+		querySnapshot.forEach((doc) => {
+			let todo = { ...doc.data(), id: doc.id };
+			fbTodos = [todo, ...fbTodos];
+		});
+		todos = fbTodos;
+		console.table(fbTodos);
+	});
 
 	let newItem = '';
 
-	const addItem = () => {
-		let todo = {
-			task: newItem,
-			isComplete: false
-		};
+	const addItem = async () => {
 		if (newItem !== '') {
-			todos = [todo, ...todos];
-			newItem = '';
+			const docRef = await addDoc(collection(db, 'todos'), {
+				task: newItem,
+				isComplete: false
+			});
 		}
 	};
 
@@ -33,13 +38,14 @@
 		}
 	};
 
-	const markCompleted = (index) => {
-		todos[index].isComplete = !todos[index].isComplete;
+	const markCompleted = async (item) => {
+		await updateDoc(doc(db, 'todos', item.id), {
+			isComplete: !item.isComplete
+		});
 	};
 
-	const deleteTodo = (index) => {
-		todos.splice(index, 1);
-		todos = todos;
+	const deleteTodo = async (item) => {
+		await deleteDoc(doc(db, 'todos', item.id));
 	};
 
 	let placeholder = 'Add a task';
@@ -60,14 +66,14 @@
 					<span
 						><button
 							class="bg-blue-500 hover:bg-blue-700 text-white m-2 px-2 rounded-full"
-							on:click={() => markCompleted(index)}>✔</button
+							on:click={() => markCompleted(td)}>✔</button
 						></span
 					>
 					<span>{td.task}</span>
 					<span
 						><button
 							class="bg-red-500 hover:bg-red-700 text-white m-2 px-2 rounded-full"
-							on:click={() => deleteTodo(index)}>✘</button
+							on:click={() => deleteTodo(td)}>✘</button
 						></span
 					>
 				</li>
