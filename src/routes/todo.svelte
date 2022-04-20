@@ -1,17 +1,28 @@
 <script>
 	// @ts-nocheck
 	import { db } from '../firebase.js';
-	import { collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
+	import {
+		collection,
+		onSnapshot,
+		doc,
+		updateDoc,
+		deleteDoc,
+		addDoc,
+		where,
+		query
+	} from 'firebase/firestore';
 
 	import { user, isLoggedIn } from '../stores/stores';
 
 	const displayName = $user.displayName || 'nobody';
 
 	const colRef = collection(db, 'todos');
-	const fbTodos = [];
+	const q = query(colRef, where('userUID', '==', $user.uid || ''));
 
+	const fbTodos = [];
 	let todos = [];
-	const _func = onSnapshot(colRef, (querySnapshot) => {
+
+	const _func = onSnapshot(q, (querySnapshot) => {
 		let fbTodos = [];
 		querySnapshot.forEach((doc) => {
 			let todo = { ...doc.data(), id: doc.id };
@@ -27,7 +38,8 @@
 		if (newItem !== '') {
 			const docRef = await addDoc(collection(db, 'todos'), {
 				task: newItem,
-				isComplete: false
+				isComplete: false,
+				userUID: $user.uid
 			});
 		}
 	};
