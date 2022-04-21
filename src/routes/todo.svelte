@@ -44,6 +44,7 @@
 				userUID: $user.uid,
 				priority: p || 0
 			});
+			newItem = '';
 		}
 	};
 
@@ -66,7 +67,7 @@
 	let placeholder = 'Add a task';
 </script>
 
-<h1 class="text-4xl text-center my-8 uppercase">{displayName}'s Todo List</h1>
+<h1 class="text-2xl text-center my-8 uppercase">{displayName}'s Todo List</h1>
 <div class="container mx-auto">
 	{#if $isLoggedIn}
 		<input class="text-lg6 text-center mx-auto" type="text" {placeholder} bind:value={newItem} />
@@ -95,25 +96,26 @@
 			>
 		</div>
 
-		<div class="border-2 m-10  p-5">
+		<div class="border-2 m-2  p-2">
 			<ol>
 				{#each todos as td}
-					<li class="list-decimal text-left text-base" class:complete={td.isComplete}>
+					<li class="text-left text-base" class:complete={td.isComplete}>
 						<span
 							><button
 								title="Mark task as completed"
-								class="bg-blue-500 hover:bg-blue-700 text-white m-2 px-1 rounded-full"
+								class="bg-blue-500 hover:bg-blue-700 text-white m-1 px-1 rounded-full"
 								on:click={() => markCompleted(td)}>✔</button
 							></span
 						>
-						<span class={td.bg}>{td.task}</span>
+
 						<span
 							><button
 								title="Delete task"
-								class="bg-red-500 hover:bg-red-700 text-white m-2 px-1 rounded-full"
-								on:click={() => deleteTodo(td)}>✘</button
+								class="bg-red-500 hover:bg-red-700 text-white m-1 px-1 rounded-full"
+								on:click={() => deleteTodo(td)}>&#128465</button
 							></span
 						>
+						<span class={td.bg}>{td.task}</span>
 					</li>
 				{:else}
 					<p>No todos found</p>

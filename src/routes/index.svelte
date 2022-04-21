@@ -1,8 +1,20 @@
-<h1 class="text-4xl text-center my-8 uppercase">Welcome to my Firebase Demo Project</h1>
+<h1 class="text-4xl text-center my-8 uppercase">List Manager</h1>
 
-<div class="container">
-	<p class="text-center">
-		Simple demo project using Firebase Auth with Goolge to log a user in and out.
+<div>
+	<p>
+		A simple list manager built using Google Firebase and Google Authentication for login/logout
 	</p>
-	<p>The project uses Firestore to provide a user centric todolist and shopping list manager.</p>
+	<br class="m-5" />
+	<p class="text-left my-5">The app provides three list types:-</p>
+	<ul class="text-left">
+		<li>A prioritised todo list</li>
+		<li>A shopping list - with customiseable shops</li>
+		<li>A bucket list - just for fun</li>
+	</ul>
 </div>
+
+<style>
+	li {
+		text-decoration-style: dotted;
+	}
+</style>

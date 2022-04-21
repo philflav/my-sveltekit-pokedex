@@ -67,7 +67,7 @@
 	let placeholder = 'Add a shopping item';
 </script>
 
-<h1 class="text-4xl text-center my-8 uppercase">{displayName}'s Shopping List</h1>
+<h1 class="text-center my-8 uppercase">{displayName}'s Shopping List</h1>
 <div class="container mx-auto">
 	{#if $isLoggedIn}
 		<input class="text-lg6 text-center mx-auto" type="text" {placeholder} bind:value={newItem} />
@@ -96,30 +96,31 @@
 			>
 		</div>
 
-		<div class="border-2 m-10  p-5">
-			<ol>
+		<div class="border-2 m-2  p-1">
+			<ul>
 				{#each shopping as td}
-					<li class="list-decimal text-left text-base" class:complete={td.isComplete}>
+					<li class="text-left text-base" class:complete={td.isComplete}>
 						<span
 							><button
 								title="Mark task as bought"
-								class="bg-blue-500 hover:bg-blue-700 text-white m-2 px-1 rounded-full"
+								class="bg-blue-500 hover:bg-blue-700 text-white m-1 px-1 rounded-full"
 								on:click={() => markCompleted(td)}>✔</button
 							></span
 						>
-						<span class={td.bg}>{td.task}</span>
 						<span
 							><button
 								title="Delete item"
-								class="bg-red-500 hover:bg-red-700 text-white m-2 px-1 rounded-full"
-								on:click={() => deleteTodo(td)}>✘</button
+								class="bg-red-500 hover:bg-red-700 text-white m-1 px-1 rounded-full"
+								on:click={() => deleteTodo(td)}>&#128465</button
 							></span
+						>
+						<span class={td.bg}>{td.task}</span>
 						>
 					</li>
 				{:else}
 					<p>No shopping found</p>
 				{/each}
-			</ol>
+			</ul>
 		</div>
 	{/if}
 	{#if !$isLoggedIn}

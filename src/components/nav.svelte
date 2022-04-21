@@ -17,9 +17,13 @@
 		class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0"
 		href="/shopping_list">Shopping List</a
 	>
-	<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/about"
-		>About</a
+	<a
+		class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0"
+		href="/bucketList">Bucket List</a
 	>
+	<!-- <a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/about"
+		>About</a
+	> -->
 	{#if !$isLoggedIn}
 		<a class="nav-link text-white opacity-80 hover:opacity-100 focus:opacity-100 p-0" href="/login"
 			>Login</a
