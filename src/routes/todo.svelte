@@ -24,22 +24,25 @@
 
 	const _func = onSnapshot(q, (querySnapshot) => {
 		let fbTodos = [];
+		let bgs = ['bg-green-400', 'bg-orange-400', 'bg-blue-300'];
 		querySnapshot.forEach((doc) => {
-			let todo = { ...doc.data(), id: doc.id };
+			let todo = { ...doc.data(), id: doc.id, bg: bgs[doc.data().priority] };
 			fbTodos = [todo, ...fbTodos];
 		});
-		todos = fbTodos;
-		console.table(fbTodos);
+		todos = fbTodos.sort((a, b) => a.priority - b.priority);
+		console.table(todos);
 	});
 
 	let newItem = '';
 
-	const addItem = async () => {
+	const addItem = async (p) => {
 		if (newItem !== '') {
+			// console.log(priority);
 			const docRef = await addDoc(collection(db, 'todos'), {
 				task: newItem,
 				isComplete: false,
-				userUID: $user.uid
+				userUID: $user.uid,
+				priority: p || 0
 			});
 		}
 	};
@@ -66,22 +69,37 @@
 <h1 class="text-4xl text-center my-8 uppercase">{displayName}'s Todo List</h1>
 
 {#if $isLoggedIn}
-	<input type="text" {placeholder} bind:value={newItem} />
-	<button class="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-full" on:click={addItem}
-		>Add item</button
+	<input class="text-base" type="text" {placeholder} bind:value={newItem} />
+	<button
+		class="bg-green-500 hover:bg-green-700 text-base text-white px-4 rounded-full"
+		on:click={() => {
+			addItem(0);
+		}}>Add as High Priority</button
+	>
+	<button
+		class="bg-orange-500 hover:bg-orange-700 text-base text-white px-4 rounded-full"
+		on:click={() => {
+			addItem(1);
+		}}>Add as Normal Priority</button
+	>
+	<button
+		class="bg-blue-400 hover:bg-blue-700 text-base text-white px-4 rounded-full"
+		on:click={() => {
+			addItem(2);
+		}}>Add as Low Priority</button
 	>
 
 	<div class="border-2 m-10  p-10">
 		<ol>
-			{#each todos as td, index}
-				<li class="list-decimal text-left" class:complete={td.isComplete}>
+			{#each todos as td}
+				<li class="list-decimal text-left text-base" class:complete={td.isComplete}>
 					<span
 						><button
 							class="bg-blue-500 hover:bg-blue-700 text-white m-2 px-2 rounded-full"
 							on:click={() => markCompleted(td)}>✔</button
 						></span
 					>
-					<span>{td.task}</span>
+					<span class={td.bg}>{td.task}</span>
 					<span
 						><button
 							class="bg-red-500 hover:bg-red-700 text-white m-2 px-2 rounded-full"
