@@ -70,7 +70,12 @@
 <h1 class="text-center my-8 uppercase">{displayName}'s Shopping List</h1>
 <div class="container mx-auto">
 	{#if $isLoggedIn}
-		<input class="text-lg6 text-center mx-auto" type="text" {placeholder} bind:value={newItem} />
+		<input
+			class="text-lg6 text-center mx-auto bg-slate-200"
+			type="text"
+			{placeholder}
+			bind:value={newItem}
+		/>
 		<div class="flex flex-col">
 			<button
 				class="bg-green-500 hover:bg-green-700 text-base text-white px-4 rounded-full m-3"
